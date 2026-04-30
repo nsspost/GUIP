@@ -23,6 +23,10 @@
 - [docs/ignored-signals-v1.md](docs/ignored-signals-v1.md)
 - [docs/service-diagnostics-v1.md](docs/service-diagnostics-v1.md)
 - [docs/startup-selftest-v1.md](docs/startup-selftest-v1.md)
+- [docs/visual-mockups.md](docs/visual-mockups.md)
+
+Визуальные материалы:
+- `assets/mockups/` — сохраненные статические изображения с концептами экранов.
 
 Рекомендуемый порядок работы:
 1. Добавлять подтвержденные технические факты о приборе.
