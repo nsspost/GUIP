@@ -194,6 +194,7 @@
 Подробный первый макет навигации и wireframe вынесен в:
 - [docs/ui-concept-v1.md](docs/ui-concept-v1.md)
 - [docs/simple-home-screen-v1.md](docs/simple-home-screen-v1.md)
+- [docs/detections-list-v1.md](docs/detections-list-v1.md)
 
 ## Предварительная Структура Настроек
 
