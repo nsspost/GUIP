@@ -13,6 +13,16 @@
 - [docs/ui-concept-v1.md](docs/ui-concept-v1.md)
 - [docs/simple-home-screen-v1.md](docs/simple-home-screen-v1.md)
 - [docs/detections-list-v1.md](docs/detections-list-v1.md)
+- [docs/signal-details-v1.md](docs/signal-details-v1.md)
+- [docs/hold-monitor-v1.md](docs/hold-monitor-v1.md)
+- [docs/video-view-v1.md](docs/video-view-v1.md)
+- [docs/spectrum-pro-v1.md](docs/spectrum-pro-v1.md)
+- [docs/settings-menu-v1.md](docs/settings-menu-v1.md)
+- [docs/signal-types-settings-v1.md](docs/signal-types-settings-v1.md)
+- [docs/alerts-settings-v1.md](docs/alerts-settings-v1.md)
+- [docs/ignored-signals-v1.md](docs/ignored-signals-v1.md)
+- [docs/service-diagnostics-v1.md](docs/service-diagnostics-v1.md)
+- [docs/startup-selftest-v1.md](docs/startup-selftest-v1.md)
 
 Рекомендуемый порядок работы:
 1. Добавлять подтвержденные технические факты о приборе.
