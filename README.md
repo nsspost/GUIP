@@ -11,6 +11,7 @@
 Основные рабочие документы:
 - [docs/product-and-ui-notes.md](docs/product-and-ui-notes.md)
 - [docs/ui-concept-v1.md](docs/ui-concept-v1.md)
+- [docs/simple-home-screen-v1.md](docs/simple-home-screen-v1.md)
 
 Рекомендуемый порядок работы:
 1. Добавлять подтвержденные технические факты о приборе.
