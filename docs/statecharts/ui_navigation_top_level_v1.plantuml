@@ -1,0 +1,88 @@
+@startuml ui_navigation_top_level_v1
+' Top-level UI navigation statechart for portable SDR instrument.
+' This diagram is intended as a first conceptual StateSmith/PlantUML artifact.
+
+hide empty description
+
+title UI Navigation Top Level V1
+
+[*] --> Boot
+
+Boot : entry / show_boot_screen()
+Boot --> StartupSelfTest : EV_BOOT_STARTED
+
+StartupSelfTest : entry / show_selftest_screen()
+StartupSelfTest --> HomeScanning : EV_DEVICE_BOOT_OK / start_scan_mode()
+StartupSelfTest --> FatalError : EV_DEVICE_BOOT_FAIL / show_fatal_error()
+
+HomeScanning : entry / show_home_screen()
+HomeScanning : do / update_scan_status()
+HomeScanning --> DetectionsList : EV_BTN_ENTER
+HomeScanning --> SettingsMenu : EV_BTN_MENU
+HomeScanning --> SignalPopup : EV_SIGNAL_DETECTED / show_signal_popup()
+
+SignalPopup : entry / show_signal_popup()
+SignalPopup --> SignalDetails : EV_BTN_ENTER / open_selected_signal()
+SignalPopup --> HomeScanning : EV_TIMEOUT
+SignalPopup --> HomeScanning : EV_BTN_BACK
+SignalPopup --> HomeScanning : EV_ACTION_IGNORE
+
+DetectionsList : entry / show_detections_list()
+DetectionsList --> SignalDetails : EV_BTN_ENTER / open_selected_signal()
+DetectionsList --> HomeScanning : EV_BTN_BACK
+DetectionsList --> SettingsMenu : EV_BTN_MENU
+
+SignalDetails : entry / show_signal_details()
+SignalDetails --> HoldMonitor : EV_ACTION_HOLD / start_hold_mode()
+SignalDetails --> VideoPreview : EV_ACTION_VIDEO / request_video_preview()
+SignalDetails --> DetectionsList : EV_BTN_BACK
+SignalDetails --> SettingsMenu : EV_BTN_MENU
+
+HoldMonitor : entry / show_hold_monitor()
+HoldMonitor : do / update_hold_status()
+HoldMonitor --> SignalDetails : EV_BTN_BACK
+HoldMonitor --> HomeScanning : EV_ACTION_RELEASE / release_hold_mode()
+HoldMonitor --> VideoPreview : EV_ACTION_VIDEO / request_video_preview()
+HoldMonitor --> HoldSignalLost : EV_SIGNAL_LOST / show_signal_lost_warning()
+
+HoldSignalLost : entry / show_signal_lost_warning()
+HoldSignalLost --> HoldMonitor : EV_SIGNAL_UPDATED
+HoldSignalLost --> HomeScanning : EV_TIMEOUT / release_hold_mode()
+HoldSignalLost --> HomeScanning : EV_ACTION_RELEASE / release_hold_mode()
+HoldSignalLost --> SignalDetails : EV_BTN_BACK
+
+VideoPreview : entry / show_video_preview()
+VideoPreview : do / update_video_status()
+VideoPreview --> SignalDetails : EV_BTN_BACK
+VideoPreview --> HoldMonitor : EV_ACTION_HOLD / start_hold_mode()
+VideoPreview --> VideoNoSync : EV_VIDEO_LOST / show_video_no_sync()
+
+VideoNoSync : entry / show_video_no_sync()
+VideoNoSync --> VideoPreview : EV_VIDEO_LOCKED
+VideoNoSync --> SignalDetails : EV_BTN_BACK
+VideoNoSync --> HomeScanning : EV_ACTION_RELEASE / release_video_mode()
+
+SettingsMenu : entry / show_settings_menu()
+SettingsMenu --> HomeScanning : EV_BTN_BACK
+SettingsMenu --> ServiceDiagnostics : EV_OPEN_DIAGNOSTICS
+
+ServiceDiagnostics : entry / show_service_diagnostics()
+ServiceDiagnostics --> SettingsMenu : EV_BTN_BACK
+
+FatalError : entry / show_fatal_error()
+FatalError --> [*]
+
+' Global transitions / concepts.
+' In StateSmith implementation these may become transitions from a common parent state.
+HomeScanning --> LowBatteryWarning : EV_BATTERY_LOW
+DetectionsList --> LowBatteryWarning : EV_BATTERY_LOW
+SignalDetails --> LowBatteryWarning : EV_BATTERY_LOW
+HoldMonitor --> LowBatteryWarning : EV_BATTERY_LOW
+VideoPreview --> LowBatteryWarning : EV_BATTERY_LOW
+SettingsMenu --> LowBatteryWarning : EV_BATTERY_LOW
+
+LowBatteryWarning : entry / show_low_battery_warning()
+LowBatteryWarning --> HomeScanning : EV_DIALOG_CONFIRMED
+LowBatteryWarning --> HomeScanning : EV_TIMEOUT
+
+@enduml
